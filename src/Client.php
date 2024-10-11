@@ -100,6 +100,7 @@ class Client implements LoggerAwareInterface
      */
     public function __construct(
         CredentialsInterface $credentials,
+        private int $whatsappBusinessPhoneNumberId,
         $options = [],
         ?ClientInterface $client = null
     ) {
@@ -181,6 +182,11 @@ class Client implements LoggerAwareInterface
     public function getApiUrl(): string
     {
         return $this->apiUrl;
+    }
+
+    public function getWhatsappBusinessPhoneNumberId(): int
+    {
+        return $this->whatsappBusinessPhoneNumberId;
     }
 
     /**

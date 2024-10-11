@@ -13,7 +13,7 @@ class ClientFactory
         /** @var APIResource $api */
         $api = $container->make(APIResource::class);
         $api
-            ->setBaseUrl($api->getClient()->getApiUrl() . '/v1/messages')
+            ->setBaseUrl($api->getClient()->getApiUrl() . '/'. $api->getClient()->getWhatsappBusinessPhoneNumberId() .'/messages')
             ->setIsHAL(false)
             ->setErrorsOn200(false)
             ->setAuthHandlers([new BearerHandler()])

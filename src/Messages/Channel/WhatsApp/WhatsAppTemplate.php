@@ -16,17 +16,19 @@ class WhatsAppTemplate extends BaseMessage
 
     public function __construct(
         string $to,
-        string $from,
         protected TemplateObject $templateObject,
         protected string $locale
     ) {
         $this->to = $to;
-        $this->from = $from;
     }
 
     public function toArray(): array
     {
         $returnArray = [
+            'messaging_product' => 'whatsapp',
+            'recipient_type' => 'individual',
+            'to' => $this->to,
+            'type' => 'template',
             'template' => $this->templateObject->toArray(),
             'whatsapp' => [
                 'policy' => 'deterministic',
@@ -34,11 +36,7 @@ class WhatsAppTemplate extends BaseMessage
             ]
         ];
 
-        if (!is_null($this->context)) {
-            $returnArray['context'] = $this->context;
-        }
-
-        return array_merge($this->getBaseMessageUniversalOutputArray(), $returnArray);
+        return $returnArray;
     }
 
     public function getLocale(): string

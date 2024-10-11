@@ -6,7 +6,7 @@ use Maksb\WhatsappClient\Entity\Hydrator\ArrayHydrateInterface;
 
 class TemplateObject implements ArrayHydrateInterface
 {
-    public function __construct(private string $name, private array $parameters)
+    public function __construct(private string $name, private array $parameters, private string $language)
     {
     }
 
@@ -24,11 +24,15 @@ class TemplateObject implements ArrayHydrateInterface
     public function toArray(): array
     {
         $returnArray = [
-            'name' => $this->name
+            'name' => $this->name,
+            'language' => [ 'code' => $this->language],
         ];
 
         if ($this->parameters) {
-            $returnArray['parameters'] = $this->parameters;
+            $returnArray['components'] = [
+                'type' => 'body',
+                'parameters' => $this->parameters
+            ];
         }
 
         return $returnArray;

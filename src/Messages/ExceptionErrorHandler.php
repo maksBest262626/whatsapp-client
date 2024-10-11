@@ -18,25 +18,19 @@ class ExceptionErrorHandler
      */
     public function __invoke(ResponseInterface $response, RequestInterface $request)
     {
-        $responseBody = json_decode(
-            $response->getBody()->getContents(),
-            true,
-            512,
-            JSON_THROW_ON_ERROR
-        );
-        $statusCode = (int)$response->getStatusCode();
+        $statusCode = $response->getStatusCode();
 
         if ($statusCode === 429) {
             throw new ClientException\Exception(
-                $responseBody['title'] . ': ' . $responseBody['detail'],
+                $response->getBody()->getContents(),
                 $response->getStatusCode()
             );
         }
 
         if ($statusCode >= 500 && $statusCode <= 599) {
-            throw new ClientException\Exception($responseBody['title'] . ': ' . $responseBody['detail']);
+            throw new ClientException\Exception($response->getBody()->getContents());
         }
 
-        throw new ClientException\Exception($responseBody['title'] . ': ' . $responseBody['detail']);
+        throw new ClientException\Exception($response->getReasonPhrase().' : '.$response->getBody()->getContents());
     }
 }
