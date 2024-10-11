@@ -1,0 +1,28 @@
+{
+    "name": "maksb/whatsapp-client",
+    "description": "Whatsapp sdk",
+    "type": "library",
+    "require": {
+        "php": "~8.0 || ~8.1 || ~8.2 || ~8.3",
+        "guzzlehttp/guzzle": "^7.0",
+        "psr/log": "^1.1|^2.0|^3.0",
+        "psr/container": "^1.0 | ^2.0",
+        "psr/http-client-implementation": "^1.0",
+        "laminas/laminas-diactoros": "^3.4"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Maksb\\WhatsappClient\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require-dev": {
+        "php-http/mock-client": "^1.6"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
